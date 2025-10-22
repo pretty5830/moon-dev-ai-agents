@@ -15,7 +15,7 @@ feel free to join [our discord](https://discord.gg/8UPuVZ53bh) if you beleive ai
 📀 follow all updates here on youtube: https://www.youtube.com/playlist?list=PLXrNVMjRZUJg4M4uz52iGd1LhXXGVbIFz
 
 ## Live Agents
-- **Trading Agent** (`trading_agent.py`): **DUAL-MODE AI trading system** - Toggle between single model (fast ~10s) or swarm mode (6-model consensus ~45-60s). Swarm mode queries Claude 4.5, GPT-5, Gemini 2.5, Grok-4, DeepSeek, and DeepSeek-R1 local for majority vote trading decisions. Configure via `USE_SWARM_MODE` in config.py 🌊🤖
+- **Trading Agent** (`trading_agent.py`): **DUAL-MODE AI trading system** - Toggle between single model (fast ~10s) or swarm mode (6-model consensus ~45-60s). Swarm mode queries Claude 4.5, GPT-5, Gemini 2.5, Grok-4, DeepSeek, and DeepSeek-R1 local for majority vote trading decisions. Configure via `USE_SWARM_MODE` in config.py 
 - Strategy Agent (`strategy_agent.py`): Manages and executes trading strategies placed in the strategies folder
 - Risk Agent (`risk_agent.py`): Monitors and manages portfolio risk, enforcing position limits and PnL thresholds
 - Copy Agent (`copy_agent.py`): monitors copy bot for potential trades
