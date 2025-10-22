@@ -122,6 +122,7 @@ src/audio
 src/data/solana_agent
 src/data/sniper_agent
 src/data/tx_agent
+src/data/swarm_agent
 /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/videos/raw_clips
 
 # Project specific
