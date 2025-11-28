@@ -33,6 +33,7 @@ feel free to join [our discord](https://discord.gg/8UPuVZ53bh) if you beleive ai
 - **RBI Parallel Agent** (`rbi_agent_pp_multi.py`): Parallel version with 18 threads, tests across 20+ data sources, web dashboard included
 - **Research Agent** (`research_agent.py`): Fills the ideas.txt file so the RBI agent can run forever
 - **Websearch Agent** (`websearch_agent.py`): This agent searches the web, in my use case for trading strategy resources and then uses other ai's to split the website ideas into strategy files i can have my  `rbi_agent_pp_multi.py` process and build out backtests
+- **Volume Agent** (`volume_agent.py`): this is an agent swarm that watches the volume of all hyperliquid tokens so we always see upcoming runners early.
 
 ### Live Trading Agents
 - **Trading Agent** (`trading_agent.py`): **DUAL-MODE AI trading system** - Toggle between single model (fast ~10s) or swarm mode (6-model consensus ~45-60s). Swarm mode queries Claude 4.5, GPT-5, Gemini 2.5, Grok-4, DeepSeek, and DeepSeek-R1 local for majority vote trading decisions. Configure via `USE_SWARM_MODE` in config.py
@@ -72,6 +73,7 @@ feel free to join [our discord](https://discord.gg/8UPuVZ53bh) if you beleive ai
 - **Compliance Agent** (`compliance_agent.py`): Analyzes TikTok ads for Facebook advertising compliance, extracting frames and transcribing audio to check against FB guidelines
 - **Housecoin Agent** (`housecoin_agent.py`): DCA (dollar cost average) agent with AI confirmation layer using Grok-4 for the thesis: 1 House = 1 Housecoin 🏠
 - **Polymarket Agent** (`polymarket_agent.py`): Connects to the live trades feed via WebSocket and analyzes with the swarm agent to see which markets could be interesting to trade
+- **Scrape Agent** (`scrape_agent.py`): This agent can scrape any website and then submit it to ai and get a response. unlimited use cases. 
 
 
 ## ⚠️ Critical Disclaimers
@@ -137,7 +139,7 @@ cd moon-dev-ai-agents-for-trading
 
 **Recommended IDEs:**
 - [Cursor](https://www.cursor.com/) - AI-enabled coding
-- [Windsurfer](https://codeium.com/) - AI-enabled coding
+- [Windsurf](https://codeium.com/) - AI-enabled coding
 
 ### Step 3: 🔑 Set Up Environment Variables
 

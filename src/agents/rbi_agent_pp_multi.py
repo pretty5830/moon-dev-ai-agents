@@ -32,7 +32,7 @@ NEW FEATURES:
 Required Setup:
 1. Conda environment 'tflow' with backtesting packages
 2. Set MAX_PARALLEL_THREADS (default: 5)
-3. Multi-data tester at: /Users/md/Dropbox/dev/github/moon-dev-trading-bots/backtests/multi_data_tester.py
+3. External dependency: moon-dev-trading-bots repo (clone as sibling: ../moon-dev-trading-bots)
 4. Run and watch all ideas process in parallel with multi-data validation! 🚀💰
 
 IMPORTANT: Each thread is fully independent and won't interfere with others!
@@ -45,6 +45,10 @@ from pathlib import Path
 
 # Core imports
 import os
+
+# 🌙 Moon Dev: Calculate project root dynamically (works on any system!)
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+DATA_DIR = PROJECT_ROOT / "src" / "data"
 import time
 import re
 import hashlib
@@ -71,7 +75,7 @@ AI_MAX_TOKENS = 16000  # 🌙 Moon Dev: Increased for complete backtest code gen
 
 # Import model factory with proper path handling
 import sys
-sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading')
+sys.path.append(str(PROJECT_ROOT))  # 🌙 Moon Dev: Dynamic path that works on any system!
 
 try:
     from src.models import model_factory
@@ -102,7 +106,7 @@ RATE_LIMIT_GLOBAL_DELAY = 0.5  # Global delay between any API calls
 #   - Perfect for auto-generated strategies from web search agent!
 #
 STRATEGIES_FROM_FILES = False  # Set to True to read from folder instead of ideas.txt
-STRATEGIES_FOLDER = "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/web_search_research/final_strategies"
+STRATEGIES_FOLDER = DATA_DIR / "web_search_research" / "final_strategies"  # 🌙 Moon Dev: Dynamic path!
 
 # Thread color mapping
 THREAD_COLORS = {
@@ -134,35 +138,32 @@ rate_limiter = Semaphore(MAX_PARALLEL_THREADS)
 # - GLM: z-ai/glm-4.6
 # See src/models/openrouter_model.py for ALL available models!
 
-# 🧠 RESEARCH: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-RESEARCH_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# ============================================
+# 🌙 Moon Dev's MODEL SELECTION - Easy Switch!
+# ============================================
+# Uncomment the model you want to use, comment out the other!
+# Option 1: Claude Opus 4.5 (Anthropic's most powerful model!)
+# Option 2: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 
-# 💻 BACKTEST CODE GEN: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-BACKTEST_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# 🧠 RESEARCH
+RESEARCH_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# RESEARCH_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
 
-# 🐛 DEBUGGING: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-DEBUG_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# 💻 BACKTEST CODE GEN
+BACKTEST_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# BACKTEST_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
 
-# 📦 PACKAGE CHECK: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-PACKAGE_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# 🐛 DEBUGGING
+DEBUG_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# DEBUG_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
 
-# 🚀 OPTIMIZATION: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-OPTIMIZE_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# 📦 PACKAGE CHECK
+PACKAGE_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# PACKAGE_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
+
+# 🚀 OPTIMIZATION
+OPTIMIZE_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# OPTIMIZE_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
 
 # 🎯 PROFIT TARGET CONFIGURATION
 TARGET_RETURN = 50  # Target return in %
@@ -507,7 +508,7 @@ RISK MANAGEMENT:
 
 If you need indicators use TA lib or pandas TA.
 
-Use this data path: /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv
+Use this data path: src/data/rbi/BTC-USD-15m.csv (relative to project root)
 the above data head looks like below
 datetime, open, high, low, close, volume,
 2023-01-01 00:00:00, 16531.83, 16532.69, 16509.11, 16510.82, 231.05338022,
@@ -533,7 +534,7 @@ if __name__ == "__main__":
 
     # FIRST: Run standard backtest and print stats (REQUIRED for parsing!)
     print("\\n🌙 Running initial backtest for stats extraction...")
-    data = pd.read_csv('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv')
+    data = pd.read_csv('src/data/rbi/BTC-USD-15m.csv')  # 🌙 Moon Dev: Relative path from project root!
     data['datetime'] = pd.to_datetime(data['datetime'])
     data = data.set_index('datetime')
     data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
@@ -549,7 +550,11 @@ if __name__ == "__main__":
     print("="*80 + "\\n")
 
     # THEN: Run multi-data testing
-    sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-trading-bots/backtests')
+    # 🌙 Moon Dev: EXTERNAL DEPENDENCY - Requires moon-dev-trading-bots repo
+    # Clone from: https://github.com/moondevonyt/moon-dev-trading-bots
+    # Expected location: ../moon-dev-trading-bots (sibling to this repo)
+    external_backtests = str(Path(__file__).parent.parent.parent.parent / 'moon-dev-trading-bots' / 'backtests')
+    sys.path.append(external_backtests)
     from multi_data_tester import test_on_all_data
 
     print("\\n" + "="*80)
